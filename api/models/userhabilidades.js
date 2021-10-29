@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   UserHabilidades.init({
-    tipo: DataTypes.STRING
+    nivel: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'UserHabilidades',

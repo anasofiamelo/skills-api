@@ -24,7 +24,7 @@ module.exports = {
           key: 'id'
         }
       },
-      tipo: {
+      nivel: {
         type: Sequelize.STRING,
         references: {
           model: 'users',

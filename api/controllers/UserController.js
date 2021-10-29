@@ -59,7 +59,7 @@ class UserController {
     static async deletaUser(req, res){
         const { id } = req.params
         try {
-            await database.Users.destroy({where: {} })
+            await database.Users.destroy({where: {id: Number(id)}})
             return res.status(200).json({mensagem: `id ${id} deletado`})
         } catch (error) {
             return res.status(400).json(error.message)
