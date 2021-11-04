@@ -8,7 +8,10 @@ router.get('/users/:id', UserController.pegaUser)
 router.post('/users', UserController.criaUser)
 router.put('/users/:id', UserController.atualizaUser)
 router.delete('/users/:id', UserController.deletaUser)
-router.get('/users/:userId/userhabilidades', UserController.pegaTodosUserHabilidades)
+
+router.post('/user/login', UserController.logaUser)
+
+router.get('/users/:userId/habilidades', UserController.pegaHabilidadesUser)
 router.post('/users/:userId/userhabilidades', UserController.criaUserHabilidades)
 router.delete('/users/:userId/userhabilidades/:id', UserController.apagaUserHabilidades)
 

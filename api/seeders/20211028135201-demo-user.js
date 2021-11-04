@@ -7,6 +7,7 @@ module.exports = {
     {
       user: 'anasouza02',
       nome: 'Ana Souza',
+      senha: 'ola123',
       admin: false,
       email: 'ana@ana.com',
       createdAt: new Date(),
@@ -15,6 +16,7 @@ module.exports = {
     {
       user: 'marcoscintrajs',
       nome: 'Marcos Cintra',
+      senha: 'ola123',
       admin: false,
       email: 'marcos@marcos.com',
       createdAt: new Date(),
@@ -23,6 +25,7 @@ module.exports = {
     {
       user: 'anasofia',
       nome: 'Ana Sofia',
+      senha: 'ola123',
       admin: true,
       email: 'sofiamelod@gmail.com',
       createdAt: new Date(),
@@ -31,6 +34,7 @@ module.exports = {
     {
       user: 'sandrinha123',
       nome: 'Sandra Gomes',
+      senha: 'ola123',
       admin: false,
       email: 'sandra@sandra.com',
       createdAt: new Date(),
@@ -39,6 +43,7 @@ module.exports = {
     {
       user: 'paulamorais',
       nome: 'Paula Morais',
+      senha: 'ola123',
       admin: false,
       email: 'paula@paula.com',
       createdAt: new Date(),

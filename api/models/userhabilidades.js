@@ -5,8 +5,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class UserHabilidades extends Model {
     static associate(models) {
-      models.Users.belongsToMany(models.Habilidades, {through: UserHabilidades, foreignKey: 'user_habilidade'})
-      models.Habilidades.belongsToMany(models.Users, {through: UserHabilidades, foreignKey: 'user_id'})
+      models.User.belongsToMany(models.Habilidades, {through: UserHabilidades, foreignKey: 'user_habilidade'})
+      models.Habilidades.belongsToMany(models.User, {through: UserHabilidades, foreignKey: 'user_id'})
+
+      models.User.belongsToMany(models.Habilidades, {through: UserHabilidades, foreignKey: 'habilidade'})
     }
   };
   UserHabilidades.init({

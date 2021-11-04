@@ -8,28 +8,31 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_habilidade: {
+      user_habilidades: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'habilidades',
-          key: 'id'
+            model: 'habilidades',
+            key: 'id'
+        }
+      },
+      habilidade: {
+        type: Sequelize.INTEGER,
+        references: {
+            model: 'habilidades',
+            key: 'habilidade'
         }
       },
       user_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
-          model: 'users',
-          key: 'id'
+            model: 'users',
+            key: 'id'
         }
       },
       nivel: {
-        type: Sequelize.STRING,
-        references: {
-          model: 'users',
-          key: 'nome'
-        }
+          type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
