@@ -1,4 +1,5 @@
 const database = require('../models');
+const bcrypt = require('bcrypt')
 
 class UserController {
 
@@ -6,7 +7,8 @@ class UserController {
     static async criaUser(req, res){
         const novoUser = req.body
         try {
-            const novoUserCriado = await database.User.create(novoUser)
+            const senhaHash = await database.User.gerarSenhaHash(novoUser.senha)
+            const novoUserCriado = await database.User.create({...novoUser, senha: senhaHash})
             return res.status(200).json(novoUserCriado)
         } catch (error) {
             return res.status(400).json(error.message)
@@ -15,16 +17,19 @@ class UserController {
 
     static async logaUser(req, res){
         try {
-            const user = await database.User.findOne({
-                where: { user: req.body.user, senha: req.body.senha }
-            })
-            if(!user){
-                return res.status(404).send('Login incorreto')
+            const user = await database.User.findOne({where: {user: req.body.user }})
+
+            const senhaCorreta = await bcrypt.compare(req.body.senha, user.senha)
+    
+            if (!senhaCorreta){
+                return res.status(500).send("senha incorreta")
+            } else {
+                return res.status(200).send('Logado com sucesso')
             }
-            return res.status(200).send('Logado com sucesso')
-        } catch (error) {
-            return res.status(400).json(error.message)
+        } catch(error) {
+            res.status(404).send(error.message)
         }
+
     }
 
     //atualizar um registro

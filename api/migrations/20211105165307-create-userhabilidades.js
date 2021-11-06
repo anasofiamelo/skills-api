@@ -17,7 +17,7 @@ module.exports = {
         }
       },
       habilidade: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
             model: 'habilidades',
             key: 'habilidade'

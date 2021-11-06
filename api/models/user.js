@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+
 'use strict';
 const {
   Model
@@ -11,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+    }
+    
+    async adicionaSenha(senha){
+      this.senhaHash = await User.gerarSenhaHash(senha)
+    }
+
+    static gerarSenhaHash(senha){
+      const custoHash =  12;
+      return bcrypt.hash(senha, custoHash);
     }
   };
   User.init({
