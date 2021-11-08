@@ -1,8 +1,13 @@
-const database = require('../models');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+const database = require('../models');
 
 class UserController {
 
+    static Login(req, res){
+        res.status(204).send()
+    }
     //criar novo usuario
     static async criaUser(req, res){
         const novoUser = req.body
@@ -16,20 +21,26 @@ class UserController {
     }
 
     static async logaUser(req, res){
+        const token = criaTokenJWT(req.body.user)
+        const user = await database.User.findOne({ where: {user: req.body.user }})
+        const senha = bcrypt.compareSync(req.body.senha, user.senha)
+
         try {
-            const user = await database.User.findOne({where: {user: req.body.user }})
-
-            const senhaCorreta = await bcrypt.compare(req.body.senha, user.senha)
-    
-            if (!senhaCorreta){
-                return res.status(500).send("senha incorreta")
-            } else {
-                return res.status(200).send('Logado com sucesso')
+            if (!user || !senha){
+                return res.status(400).send('Usuario ou senha incorretos')}
+            else {
+                res.header('Authorization', token)
+                res.status(200).json({
+                    user: {
+                        nome: user.nome,
+                        token: token
+                    }
+                })
             }
-        } catch(error) {
-            res.status(404).send(error.message)
+            
+        } catch (error) {
+            res.status(400).json(error.message)
         }
-
     }
 
     //atualizar um registro
@@ -52,14 +63,10 @@ class UserController {
 
     //deletar um registro
     static async deletaUser(req, res){
-        const { id } = req.params
-        try {
-            await database.User.destroy({where: {id: Number(id)}})
-            return res.status(200).json({mensagem: `id ${id} deletado`})
-        } catch (error) {
-            return res.status(400).json(error.message)
-        }
+        const { user } = req.params
+        await database.User.destroy({where: {user: user}})
     }
+    
     //pegar TODOS os usuarios da tabela
     static async pegaUsers(req, res){
         try {
@@ -72,28 +79,28 @@ class UserController {
 
     //pegar UM usuário na tabela
     static async pegaUser(req, res){
-        const { id } = req.params 
+        const { user } = req.params 
         try {
-            const user = await database.User.findOne(
+            const usuario = await database.User.findOne(
                 {where: 
-                    {id: Number(id)}
+                    {user: String(user)}
                 }
             )
-            return res.status(200).json(user)
+            return res.status(200).json(usuario)
         } catch (error) {
             return res.status(400).json(error.message)
         }
     }
-
+    
     static async pegaHabilidadesUser(req, res){
         const { userId } = req.params
         try {
-        const usersHabilidades = await database.UserHabilidades.findAll( {
+        const userHabilidades = await database.UserHabilidades.findAll( {
             where: {
                 user_id: Number(userId)
             }
         })
-        return res.status(200).send(usersHabilidades)
+        return res.status(200).send(userHabilidades)
         } catch (error) {
         return res.status(404).json(error.message)
         }
