@@ -23,9 +23,9 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      user: 'anasofia',
+      user: 'sof',
       nome: 'Ana Sofia',
-      senha: 'ola123',
+      senha: '123',
       admin: true,
       email: 'sofiamelod@gmail.com',
       createdAt: new Date(),

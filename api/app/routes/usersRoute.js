@@ -13,11 +13,14 @@ router.get('/:user', UserController.pegaUser)
 router.post('/create-user', UserController.criaUser)
 
 router.put('/user/:id', UserController.atualizaUser)
+
 router.delete('/:user', AuthMiddleware, UserController.deletaUser)
 
 router.get('/user', AuthMiddleware, LoginController.index)
 
+
 router.post('/login', LoginController.index)
+
 
 router.get('/users/:userId/habilidades', UserController.pegaHabilidadesUser)
 router.post('/users/:userId/userhabilidades', UserController.criaUserHabilidades)

@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_habilidades: {
+      habilidade_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
@@ -16,22 +16,16 @@ module.exports = {
             key: 'id'
         }
       },
-      habilidade: {
-        type: Sequelize.STRING,
-        references: {
-            model: 'habilidades',
-            key: 'habilidade'
-        }
-      },
       user_id: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: {
             model: 'users',
             key: 'id'
         }
       },
       nivel: {
+          allowNull: false,
           type: Sequelize.STRING
       },
       createdAt: {
