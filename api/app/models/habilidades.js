@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Habilidades.init({
-    habilidade: DataTypes.STRING
+    habilidade: DataTypes.STRING,
+    icon: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Habilidades',

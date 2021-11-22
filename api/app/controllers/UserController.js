@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-
+const { QueryTypes } = require('sequelize');
 const database = require('../models');
 
 class UserController {
@@ -45,21 +45,21 @@ class UserController {
 
     //atualizar um registro
     static async atualizaUser(req, res){
-        const { id } = req.params
+        const { user } = req.params
         const novasInfos = req.body
+        
         try {
-            await database.Users.update(novasInfos, 
-                {
-                    where: {id: Number(id)} 
-                })
-            const userAtualizado = await database.User.findOne(
-                {where: {id: Number(id)}}
+            const userAtualizado = await database.User.update(
+                {...novasInfos},
+                {where: {user: String(user)}}
             )
             return res.status(200).json(userAtualizado)
         } catch (error) {
             return res.status(400).json(error.message)
         }
+
     }
+    
 
     //deletar um registro
     static async deletaUser(req, res){
@@ -95,16 +95,19 @@ class UserController {
     static async pegaHabilidadesUser(req, res){
         const { userId } = req.params
         try {
-        const userHabilidades = await database.UserHabilidades.findAll( {
-            where: {
-                user_id: Number(userId)
-            }
-        })
-        return res.status(200).send(userHabilidades)
-        } catch (error) {
-        return res.status(404).json(error.message)
+            const userHabilidades = await database.sequelize.query(
+                'select h.habilidade, h.icon, u.id, uh.id as id_action, uh.nivel, uh.habilidade_id from userhabilidades uh inner join habilidades h on uh.habilidade_id = h.id inner join users u on u.id = uh.user_id where u.id = :userId;',
+                {
+                    replacements: { userId },
+                    type: database.sequelize.QueryTypes.SELECT
+                }
+            );
+            return res.status(200).send(userHabilidades)
+        } catch(error) {
+            return res.status(404).json(error.message)
         }
     }
+
 
     static async criaUserHabilidades(req, res){
         const { userId } = req.params
@@ -118,10 +121,15 @@ class UserController {
     }
 
     static async apagaUserHabilidades(req, res){
-        const { userId, id } = req.params
+        const { idAction } = req.params
         try {
-            await database.UserHabilidades.destroy({where: {id: Number(id)}})
-            return res.status(200).send('user apagado com sucesso')
+            await database.UserHabilidades.destroy(
+                { where: 
+                    {   
+                        id: Number(idAction)
+                    }}
+                )
+            return res.status(200).send('habilidade' + idAction + 'apagado com sucesso')
         } catch (error) {
             return res.status(400).json(error.message)
         }

@@ -7,22 +7,26 @@ module.exports = {
       {
         habilidade: 'JavaScript',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        icon: 'fa fa-fighter-jet'
       },
       {
         habilidade: 'Java',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        icon: 'fa fa-bicycle',
       },
       {
         habilidade: 'Python',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        icon: 'fa fa-handshake-o',
       },
       {
         habilidade: 'C#',
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        icon: 'fa fa-ravelry'
       }
     ]);
   },

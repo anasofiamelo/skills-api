@@ -19,7 +19,7 @@ class LoginController {
                 return res.status(400).send('Senha inválida')
 
             } else {
-                const accessToken = jwt.sign( { id: userExist.id, nome: userExist.nome }, process.env.ACCESS_TOKEN_SECRET)
+                const accessToken = jwt.sign( { id: userExist.id, user: userExist.user, nome: userExist.nome, email: userExist.email, profileDesc: userExist.profileDesc }, process.env.ACCESS_TOKEN_SECRET)
                 res.header('Authorization', accessToken)
                 return res.status(200).json({
                     user: {

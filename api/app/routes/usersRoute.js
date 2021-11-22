@@ -8,13 +8,14 @@ const router = Router();
 
 router.get('/lista', UserController.pegaUsers)
 
-router.get('/:user', UserController.pegaUser)
+router.get('/users/:user', UserController.pegaUser)
+router.get('/user/exists/:user', UserController.pegaUser)
 
 router.post('/create-user', UserController.criaUser)
 
-router.put('/user/:id', UserController.atualizaUser)
+router.put('/user/:user', UserController.atualizaUser)
 
-router.delete('/:user', AuthMiddleware, UserController.deletaUser)
+router.delete('/user/:userId', AuthMiddleware, UserController.deletaUser)
 
 router.get('/user', AuthMiddleware, LoginController.index)
 
@@ -23,7 +24,9 @@ router.post('/login', LoginController.index)
 
 
 router.get('/users/:userId/habilidades', UserController.pegaHabilidadesUser)
-router.post('/users/:userId/userhabilidades', UserController.criaUserHabilidades)
-router.delete('/users/:userId/userhabilidades/:id', UserController.apagaUserHabilidades)
 
-module.exports = router;
+router.post('/user/:userId/habilidade', UserController.criaUserHabilidades)
+
+router.delete('/:idAction', UserController.apagaUserHabilidades)
+
+module.exports = router; 

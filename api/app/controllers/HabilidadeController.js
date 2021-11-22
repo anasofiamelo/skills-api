@@ -5,20 +5,20 @@ class HabilidadeController {
     //pegar TODAS as habilidades da tabela
     static async pegaHabilidades(req, res){
         try {
-        const todasHabilidades = await database.Habilidades.findAll()
-        return res.status(200).json(todasHabilidades)
+            const todasHabilidades = await database.Habilidades.findAll()
+            return res.status(200).json(todasHabilidades)
         } catch (error) {
-        return res.status(404).json(error.message)
+            return res.status(404).json(error.message)
         }
     }
 
     //pegar UMA habilidade na tabela
     static async pegaHabilidade(req, res){
-        const { id } = req.params 
+        const { habilidade } = req.params 
         try {
             const umaHabilidade = await database.Habilidades.findOne(
                 {where: 
-                    {id: Number(id)}
+                    {habilidade: String(habilidade)}
                 }
             )
             return res.status(200).json(umaHabilidade)
