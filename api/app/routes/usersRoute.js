@@ -8,8 +8,9 @@ const router = Router();
 
 router.get('/lista', UserController.pegaUsers)
 
-router.get('/users/:user', UserController.pegaUser)
-router.get('/user/exists/:user', UserController.pegaUser)
+router.get('/users/:userId', UserController.pegaUser)
+
+router.get('/user/exists/:user', UserController.pegaUserPorUsername)
 
 router.post('/create-user', UserController.criaUser)
 
@@ -22,6 +23,8 @@ router.get('/user', AuthMiddleware, LoginController.index)
 
 router.post('/login', LoginController.index)
 
+
+router.get('/userhabilidades', UserController.pegaHabilidades)
 
 router.get('/users/:userId/habilidades', UserController.pegaHabilidadesUser)
 

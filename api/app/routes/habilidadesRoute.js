@@ -7,8 +7,9 @@ router.get('/habilidades', HabilidadeController.pegaHabilidades)
 
 router.get('/habilidade/:habilidade', HabilidadeController.pegaHabilidade)
 
-router.post('/habilidades', HabilidadeController.criaHabilidade)
+router.post('/cria-habilidade', HabilidadeController.criaHabilidade)
 router.put('/habilidades/:id', HabilidadeController.atualizaHabilidade)
+
 router.delete('/habilidades/:id', HabilidadeController.deletaHabilidade)
 
 module.exports = router;

@@ -31,7 +31,7 @@ class HabilidadeController {
     static async criaHabilidade(req, res){
         const novaHabilidade = req.body
         try {
-            const novaHabilidadeCriada = await database.Habilidade.create(novaHabilidade)
+            const novaHabilidadeCriada = await database.Habilidades.create({...novaHabilidade})
             return res.status(200).json(novaHabilidadeCriada)
         } catch (error) {
             return res.status(400).json(error.message)

@@ -79,6 +79,20 @@ class UserController {
 
     //pegar UM usuário na tabela
     static async pegaUser(req, res){
+        const { userId } = req.params 
+        try {
+            const usuario = await database.User.findOne(
+                {where: 
+                    {id: Number(userId)}
+                }
+            )
+            return res.status(200).json(usuario)
+        } catch (error) {
+            return res.status(400).json(error.message)
+        }
+    }
+
+    static async pegaUserPorUsername(req, res){
         const { user } = req.params 
         try {
             const usuario = await database.User.findOne(
@@ -92,6 +106,20 @@ class UserController {
         }
     }
     
+    static async pegaHabilidades(req, res){
+        try {
+            const habilidades = await database.sequelize.query(
+                'select h.habilidade, u.id from userhabilidades uh inner join habilidades h on uh.habilidade_id = h.id inner join users u on u.id = uh.user_id',
+                {
+                    type: database.sequelize.QueryTypes.SELECT
+                }
+            );
+            return res.status(200).send(habilidades)
+        } catch(error) {
+            return res.status(404).json(error.message)
+        }
+    }
+
     static async pegaHabilidadesUser(req, res){
         const { userId } = req.params
         try {
