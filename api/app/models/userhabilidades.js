@@ -5,8 +5,13 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class UserHabilidades extends Model {
     static associate(models) {
-      models.User.belongsToMany(models.Habilidades, {through: UserHabilidades, foreignKey: 'habilidade_id'})
-      models.Habilidades.belongsToMany(models.User, {through: UserHabilidades, foreignKey: 'user_id'})
+      models.User.belongsToMany(models.Habilidades, {
+        through: UserHabilidades, 
+        foreignKey: 'habilidade_id', 
+        onDelete: 'cascade'})
+      models.Habilidades.belongsToMany(models.User, {
+        through: UserHabilidades, 
+        foreignKey: 'user_id'})
 
     }
   };
