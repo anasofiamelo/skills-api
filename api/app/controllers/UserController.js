@@ -136,7 +136,6 @@ class UserController {
         }
     }
 
-
     static async criaUserHabilidades(req, res){
         const { userId } = req.params
         const novoUserHabilidades = { ...req.body, user_id: Number(userId) }
