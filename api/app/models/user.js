@@ -1,38 +1,36 @@
-const bcrypt = require('bcrypt')
-require('dotenv').config()
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 
-'use strict';
-const { Model } = require('sequelize');
+("use strict");
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  
   class User extends Model {
+    static associate(models) {}
 
-    static associate(models) {
-      
-    }
-    
-    async adicionaSenha(senha){
-      this.senhaHash = await User.gerarSenhaHash(senha)
+    async adicionaSenha(senha) {
+      this.senhaHash = await User.gerarSenhaHash(senha);
     }
 
-    static gerarSenhaHash(senha){
-      const custoHash =  12;
+    static gerarSenhaHash(senha) {
+      const custoHash = 12;
       return bcrypt.hash(senha, custoHash);
     }
-
-  };
-  User.init({
-    user: DataTypes.STRING,
-    nome: DataTypes.STRING,
-    senha: DataTypes.STRING,
-    email: DataTypes.STRING,
-    admin: DataTypes.BOOLEAN,
-    profilePic: DataTypes.STRING,
-    profileDesc: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
+  }
+  User.init(
+    {
+      user: DataTypes.STRING,
+      nome: DataTypes.STRING,
+      senha: DataTypes.STRING,
+      email: DataTypes.STRING,
+      admin: DataTypes.BOOLEAN,
+      profilePic: DataTypes.STRING,
+      profileDesc: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: "User",
+    }
+  );
   return User;
 };
